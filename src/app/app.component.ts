@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ApiCallService } from './services/api-call/api-call.service';
+import { Component, OnInit } from '@angular/core';
+//import { ApiCallService } from './services/api-call/api-call.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,9 @@ import { ApiCallService } from './services/api-call/api-call.service';
 export class AppComponent implements OnInit {
   title = 'Firadenda';
 
-  private _ApiCall = inject(ApiCallService);
+  //private apicall = inject(ApiCallService);
 
   ngOnInit() {
-    this._ApiCall.getItems();
+
   }
 }

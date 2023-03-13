@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiCallService {
-  constructor() {}
-  private readonly path: string = 'localhost:8080';
+  constructor(private http: HttpClient ) {}
 
-  async getItems() {
-    try {
-      const response = await axios.get(this.path + '/items');
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+  public get(url: string, options?: any) {
+    return this.http.get(url, options);
   }
+  public post(url: string, data: any, options?: any) {
+    return this.http.post(url, data, options);
+  }
+  public put(url: string, data: any, options?: any) {
+    return this.http.put(url, data, options);
+  }
+  public delete(url: string, options?: any) {
+    return this.http.delete(url, options);
+  }
+
 }

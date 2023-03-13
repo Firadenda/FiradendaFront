@@ -6,17 +6,19 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { CartComponent } from './cart/cart.component';
-import { ManageComponent } from './manage/manage.component';
+import { AdminComponent } from './admin/admin.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
+
     HeaderComponent,
     HomeComponent,
     CartComponent,
-    ManageComponent,
+    AdminComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule,  HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
