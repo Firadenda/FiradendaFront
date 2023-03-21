@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+.nav{
+  width: 100%;
+  padding: 1em 4em;
+}
+
+.nav .navbar{
+  max-width: fit-content;
+  border-radius: 50%;
+  background-color: lightgrey;
+}/* You can add global styles to this file, and also import other style files */

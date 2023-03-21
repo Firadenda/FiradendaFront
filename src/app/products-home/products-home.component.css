@@ -1,0 +1,42 @@
+.products-home{
+  padding: 2em 0;
+  margin: 0;
+}
+
+.categorie-shop-home, .products-shop-home{
+  padding: 0;
+  margin: 0;
+}
+
+.categorie-shop-home h3{
+  text-align: center;
+}
+
+.categorie-shop-home .category-item{
+  padding: 1em;
+  border: 1px solid #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.products-shop-home .item-shop{
+  border: 1px solid #000000;
+  padding: 3em 0;
+  text-align: center;
+  position: relative;
+}
+
+.products-shop-home .item-shop .btn-item{
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+@media screen and (max-width: 992px){
+  .categorie-shop-home, .products-shop-home{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+}

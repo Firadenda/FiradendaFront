@@ -1,0 +1,47 @@
+.homepage{
+  position: relative;
+  height: 85vh;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  background-image: url("/assets/Images/fetebayonne.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 89%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 75%);
+}
+
+.homepage .homepage_infos{
+  width: 25%;
+  height: 100%;
+  background-color: rgba(211, 0, 0, 0.9);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.homepage h1{
+  text-shadow: 1px 1px 1px #000000;
+  color: antiquewhite;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.homepage h2{
+  padding-left: 10vh;
+}
+
+.homepage .homepage_infos:after{
+  content: '';
+  position: absolute;
+  right: -20vh;
+  top: 0;
+  height: 100%;
+  width: 20vh;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background-color: rgba(211, 0, 0, 0.9);
+}
