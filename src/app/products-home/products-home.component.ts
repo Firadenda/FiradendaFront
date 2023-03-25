@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from "../services/cart/cart.service";
 import { Product } from "../interfaces/product.interface";
 import { ApiCallService } from "../services/api-call/api-call.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-products-home',
@@ -9,12 +10,12 @@ import { ApiCallService } from "../services/api-call/api-call.service";
   styleUrls: ['./products-home.component.css']
 })
 export class ProductsHomeComponent implements OnInit {
-  public products: Product[] = [];
+  public products$: Observable<Product[]>;
 
   constructor(private productService: ApiCallService, private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
+    this.products$ = this.productService.getProducts();
   }
 
   public addToCart(product: Product): void {
