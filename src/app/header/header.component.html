@@ -1,15 +1,13 @@
 <div class="col-12">
   <div class="topnav sticky-top" id="myTopnav">
-    <a routerLink="/">Home</a>
-    <a routerLink="/admin">Admin</a>
-    <a routerLink="/contact">Contact</a>
-    <a routerLink="/about" >About</a>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/cart">
-        Cart
-        <span class="badge badge-light ml-1">{{ cartProductCount }}</span>
-      </a>
-    </li>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Admin</a>
+    <a routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contact</a>
+    <a routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">About</a>
+    <button type="button" class="nav-link btn btn-primary" routerLink="/cart" routerLinkActive="active">
+      Cart
+      <span class="badge badge-light">{{ cartProductCount }}</span>
+    </button>
   </div>
 </div>
 
