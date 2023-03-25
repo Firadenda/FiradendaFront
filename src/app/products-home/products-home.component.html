@@ -1,69 +1,16 @@
-<section class="row container-fluid products-home">
-  <div class="row col-md-3 col-sm-12 categorie-shop-home">
-    <div class="col-12 category-title">
-      <h3>Catégories</h3>
-    </div>
-    <div class="col-md-12 col-sm-6 category-item">
-      <span>Tee-shirts</span>
-    </div>
-    <div class="col-md-12 col-sm-6 category-item">
-      <span>Chaussettes</span>
-    </div>
-    <div class="col-md-12 col-sm-6 category-item">
-      <span>Accessoires</span>
-    </div>
-    <div class="col-md-12 col-sm-6 category-item">
-      <span>Gobelets</span>
+<div class="row">
+  <div *ngFor="let product of products" class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ product.image }}" alt="{{ product.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ product.price | currency }}</h6>
+        <p class="card-text">{{ product.description }}</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+      </div>
     </div>
   </div>
-  <div class="row col-md-9 col-sm-12 products-shop-home">
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-    <div class="col-xl-3 col-lg-4 col-sm-6 item-shop">
-      <img src="" alt="" />
-      <h4>Name product</h4>
-      <p>Product description</p>
-      <button class="btn-item">Add +</button>
-    </div>
-  </div>
-</section>
+</div>
+

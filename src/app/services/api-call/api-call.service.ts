@@ -19,7 +19,11 @@ export class ApiCallService {
     return this.http.get(this.API_URL + 'data', this.httpOptions);
   }
 
-  public getIdData(id: number): Observable<any> {
+  public getProducts(): Observable<any> {
+    return this.http.get(this.API_URL + 'products', this.httpOptions);
+  }
+
+  public getDataById(id: number): Observable<any> {
     return this.http.get(this.API_URL + `data/${id}`, this.httpOptions);
   }
 

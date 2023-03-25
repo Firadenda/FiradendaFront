@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from "../services/cart/cart.service";
 
 @Component({
   selector: 'app-header',
@@ -6,12 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-}
-export function myFunction(): void {
-  const x = document.getElementById("myTopnav") as HTMLElement;
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
+  public cartProductCount: number = 0;
+
+  constructor(private cartService: CartService) { }
+
+  ngOnInit() {
+    this.cartService.cart$.subscribe(cartProducts => {
+      this.cartProductCount = cartProducts.reduce((acc, product) => acc + product.quantity, 0);
+    });
   }
+
 }
