@@ -6,6 +6,7 @@ import { CartProduct } from "../../interfaces/cart-product.interface";
   providedIn: 'root'
 })
 export class CartService {
+  public isVisible = false;
   private cartSubject = new BehaviorSubject<CartProduct[]>([]);
   public cart$: Observable<CartProduct[]> = this.cartSubject.asObservable();
 
@@ -34,5 +35,9 @@ export class CartService {
 
   public getTotal(): number {
     return this.cartSubject.getValue().reduce((acc, product) => acc + product.price * product.quantity, 0);
+  }
+
+  public toggleCart() {
+    this.isVisible = !this.isVisible;
   }
 }

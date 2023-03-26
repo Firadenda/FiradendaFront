@@ -17,4 +17,8 @@ export class HeaderComponent {
     });
   }
 
+  public toggleCart() {
+    this.cartService.toggleCart();
+  }
+
 }
