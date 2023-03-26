@@ -11,6 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ActivityComponent } from './activity/activity.component';
 import { ProductsHomeComponent } from './products-home/products-home.component';
 import { FooterComponent } from './footer/footer.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { FooterComponent } from './footer/footer.component';
     ProductsHomeComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule,  HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule,  HttpClientModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

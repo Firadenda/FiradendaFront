@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <a class="navbar-brand mt-2 mt-lg-0" routerLink="/" routerLinkActive="active">
         <img
           src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
           height="15"
@@ -21,9 +21,9 @@
         </li>
       </ul>
     </div>
-    <button class="justify-content-end btn btn-outline-secondary m-2" (click)="toggleCart()">
+    <button class="justify-content-end btn btn-dark me-3" (click)="toggleCart()">
       <i class="fa fa-shopping-cart"></i>
-      <span class="badge badge-pill badge-secondary text-black">{{ cartProductCount }}</span>
+      <span class="badge badge-pill badge-secondary text-white">{{ cartProductCount }}</span>
     </button>
   </div>
 </nav>
