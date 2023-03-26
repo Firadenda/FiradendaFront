@@ -27,6 +27,10 @@ export class ProductsHomeComponent implements OnInit {
     };
     this.cartService.addToCart(cartItem);
   }
+
+  public trackByIndex(index: number, product: Product): number {
+    return product.id;
+  }
 }
 
 

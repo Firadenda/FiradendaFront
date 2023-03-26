@@ -21,12 +21,12 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
   ]
 })
 export class CartComponent implements OnInit {
-  public cartProducts: CartProduct[] = [];
+  public cartProducts$: CartProduct[] = [];
 
   constructor(public cartService: CartService) { }
 
   ngOnInit(): void {
-    this.cartService.cart$.subscribe(cartProducts => this.cartProducts = cartProducts);
+    this.cartService.cart$.subscribe(cartProducts => this.cartProducts$ = cartProducts);
   }
 
   public removeProduct(id: number): void {
