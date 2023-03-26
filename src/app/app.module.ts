@@ -11,6 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ActivityComponent } from './activity/activity.component';
 import { ProductsHomeComponent } from './products-home/products-home.component';
 import { FooterComponent } from './footer/footer.component';
+import { FeriasComponent } from './ferias/ferias.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FooterComponent } from './footer/footer.component';
     ActivityComponent,
     ProductsHomeComponent,
     FooterComponent,
+    FeriasComponent,
   ],
   imports: [BrowserModule, AppRoutingModule,  HttpClientModule],
   providers: [],
