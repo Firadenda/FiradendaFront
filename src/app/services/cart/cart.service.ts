@@ -4,6 +4,8 @@ import { CartProduct } from '../../interfaces/cart-product.interface';
 import { Router } from '@angular/router';
 import { ApiCallService } from '../api-call/api-call.service';
 import { Order } from '../../interfaces/order.interface';
+import { ConfirmOrderModalComponent } from '../../modals/confirm-order-modal/confirm-order-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,11 @@ export class CartService {
   private cartSubject = new BehaviorSubject<CartProduct[]>([]);
   public cart$: Observable<CartProduct[]> = this.cartSubject.asObservable();
 
-  constructor(private router: Router, private apiCallService: ApiCallService) {}
+  constructor(
+    private router: Router,
+    private apiCallService: ApiCallService,
+    private dialog: MatDialog
+  ) {}
 
   public addToCart(product: CartProduct): void {
     const currentCart = this.cartSubject.getValue();
@@ -80,6 +86,12 @@ export class CartService {
 
     this.apiCallService.postOrder(order).subscribe(() => {
       this.clearCart();
+      const dialogRef = this.dialog.open(ConfirmOrderModalComponent, {
+        autoFocus: false,
+      });
+      setTimeout(() => {
+        dialogRef.close();
+      }, 5000);
       console.log('Order placed successfully!');
     });
   }

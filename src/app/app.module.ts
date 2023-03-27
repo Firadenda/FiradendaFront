@@ -13,8 +13,12 @@ import { ProductsHomeComponent } from './products-home/products-home.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderResumeComponent } from './order-resume/order-resume.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfirmOrderModalComponent } from './modals/confirm-order-modal/confirm-order-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     ProductsHomeComponent,
     FooterComponent,
     OrderResumeComponent,
+    ConfirmOrderModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

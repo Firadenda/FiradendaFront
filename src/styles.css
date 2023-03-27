@@ -24,7 +24,12 @@
   color: #d30000 !important;
 }
 
-html,
-body {
-  height: 100%;
+.modal-container {
+  position: fixed !important;
+  top: 10% !important;
+  left: 50% !important;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%) !important;
+  z-index: 9999;
 }
