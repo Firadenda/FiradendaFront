@@ -86,6 +86,23 @@ export class CartService {
     };
 
     this.apiCallService.postOrder(order).subscribe(() => {
+      cartItems.forEach((cartItem) => {
+        this.apiCallService.getProductStock(cartItem.id).subscribe((stock) => {
+          const newStock = stock - cartItem.quantity;
+          this.apiCallService.updateStock(cartItem.id, newStock).subscribe(
+            () => {
+              console.log(`Product ${cartItem.id} stock updated successfully.`);
+            },
+            (error) => {
+              console.error(error);
+              alert(
+                `An error occurred while updating product ${cartItem.id} ${newStock}stock.`
+              );
+            }
+          );
+        });
+      });
+
       this.clearCart();
 
       const dialogRef = this.dialog.open(ConfirmOrderModalComponent, {

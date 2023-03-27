@@ -63,9 +63,12 @@ export class ApiCallService {
   }
 
   public updateStock(id: number, quantity: number): Observable<any> {
-    return this.http.patch(this.API_URL + `items/${id}`, {
-      stock: quantity,
-    });
+    return this.http.put(
+      this.API_URL + `items/${id}/updateStock?newStock=${quantity}`,
+      {
+        stock: quantity,
+      }
+    );
   }
 
   public putData(id: number, data: any): Observable<any> {
