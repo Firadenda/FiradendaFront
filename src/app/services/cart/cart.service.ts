@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CartProduct } from "../../interfaces/cart-product.interface";
+import { Product } from "../../interfaces/product.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,24 @@ export class CartService {
       this.cartSubject.next(currentCart);
     } else {
       this.cartSubject.next([...currentCart, product]);
+      if (currentCart.length === 0) {
+        this.isVisible = true;
+      }
     }
   }
 
   public removeProduct(productId: number): void {
     const currentCart = this.cartSubject.getValue();
-    const updatedCart = currentCart.filter(product => product.id !== productId);
-    this.cartSubject.next(updatedCart);
+    const index = currentCart.findIndex(product => product.id === productId);
+
+    if (index !== -1) {
+      if (currentCart[index].quantity > 1) {
+        currentCart[index].quantity--;
+      } else {
+        currentCart.splice(index, 1);
+      }
+      this.cartSubject.next([...currentCart]);
+    }
   }
 
   public clearCart(): void {

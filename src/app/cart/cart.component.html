@@ -21,9 +21,9 @@
         <tbody>
         <tr *ngFor="let Product of cartProducts$">
           <td>{{ Product.name }}</td>
-          <td>{{ Product.price | currency }}</td>
+          <td>{{ Product.price | currency:"EUR" }}</td>
           <td>{{ Product.quantity }}</td>
-          <td>{{ Product.price * Product.quantity | currency }}</td>
+          <td>{{ Product.price * Product.quantity | currency:"EUR" }}</td>
           <td>
             <button class="btn btn-danger" (click)="removeProduct(Product.id)">
               <i class="fa fa-trash"></i>
@@ -32,7 +32,7 @@
         </tr>
         <tr>
           <td colspan="3">Total</td>
-          <td>{{ getTotal() | currency }}</td>
+          <td>{{ getTotal() | currency:"EUR" }}</td>
           <td>
             <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
           </td>

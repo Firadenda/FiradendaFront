@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +8,11 @@ import { Observable } from "rxjs";
 export class ApiCallService {
   constructor(private http: HttpClient ) {}
 
-  API_URL = 'https://api.example.com/';
+  API_URL = 'http://localhost:8080/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      'Authorization': 'Access-Control-Allow-Origin'
     })
   };
 
@@ -20,11 +21,16 @@ export class ApiCallService {
   }
 
   public getProducts(): Observable<any> {
-    return this.http.get(this.API_URL + 'products', this.httpOptions);
+    return this.http.get(this.API_URL + 'items', this.httpOptions).pipe(
+      catchError((error) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
   }
 
-  public getDataById(id: number): Observable<any> {
-    return this.http.get(this.API_URL + `data/${id}`, this.httpOptions);
+  public getItemById(id: number): Observable<any> {
+    return this.http.get(this.API_URL + `items/${id}`, this.httpOptions);
   }
 
   public postData(data: any): Observable<any> {

@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart();
   }
 
-  public getTotal(): any{
-    this.cartService.getTotal();
+  public getTotal(): number{
+    return this.cartService.getTotal();
   }
 }
