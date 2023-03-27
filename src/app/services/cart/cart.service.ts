@@ -96,7 +96,7 @@ export class CartService {
             (error) => {
               console.error(error);
               alert(
-                `An error occurred while updating product ${cartItem.id} ${newStock}stock.`
+                `An error occurred while updating product ${cartItem.id} with ${newStock} stock.`
               );
             }
           );

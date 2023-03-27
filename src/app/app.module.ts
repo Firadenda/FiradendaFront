@@ -19,6 +19,7 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmOrderModalComponent } from './modals/confirm-order-modal/confirm-order-modal.component';
+import { CommandComponent } from './command/command.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ConfirmOrderModalComponent } from './modals/confirm-order-modal/confirm
     FooterComponent,
     OrderResumeComponent,
     ConfirmOrderModalComponent,
+    CommandComponent,
   ],
   imports: [
     BrowserModule,
