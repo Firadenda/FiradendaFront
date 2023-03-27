@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, Observable, throwError } from "rxjs";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Order } from '../../interfaces/order.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiCallService {
-  constructor(private http: HttpClient ) {}
+  constructor(private http: HttpClient) {}
 
   API_URL = 'http://localhost:8080/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Access-Control-Allow-Origin'
-    })
+      Authorization: 'Access-Control-Allow-Origin',
+    }),
   };
 
   public getData(): Observable<any> {
@@ -37,6 +38,17 @@ export class ApiCallService {
     return this.http.post(this.API_URL + 'data', data, this.httpOptions);
   }
 
+  public postOrder(order: Order): Observable<any> {
+    return this.http
+      .post(this.API_URL + 'command', order, { responseType: 'text' })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
+  }
+
   public putData(id: number, data: any): Observable<any> {
     return this.http.put(this.API_URL + `data/${id}`, data, this.httpOptions);
   }
@@ -44,5 +56,4 @@ export class ApiCallService {
   public deleteData(id: number): Observable<any> {
     return this.http.delete(this.API_URL + `data/${id}`, this.httpOptions);
   }
-
 }
