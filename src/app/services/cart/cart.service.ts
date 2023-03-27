@@ -71,13 +71,14 @@ export class CartService {
   }
 
   public confirmOrder() {
+    const cartItems = this.cartSubject.getValue();
     const order: Order = {
-      products: this.cartSubject.getValue().map((product) => {
+      items: cartItems.map((cartItem) => {
         return {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          quantity: product.quantity,
+          id: cartItem.id,
+          name: cartItem.name,
+          price: cartItem.price,
+          quantity: cartItem.quantity,
         };
       }),
       total: this.getTotal(),
@@ -86,6 +87,7 @@ export class CartService {
 
     this.apiCallService.postOrder(order).subscribe(() => {
       this.clearCart();
+
       const dialogRef = this.dialog.open(ConfirmOrderModalComponent, {
         autoFocus: false,
       });

@@ -2,7 +2,7 @@ import { Product } from './product.interface';
 
 export interface Order {
   id?: number;
-  products: Product[];
+  items: Product[];
   total: number;
   address: string;
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Order } from '../../interfaces/order.interface';
+import { Product } from '../../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +31,20 @@ export class ApiCallService {
     );
   }
 
-  public getItemById(id: number): Observable<any> {
+  public getProductById(id: number): Observable<any> {
     return this.http.get(this.API_URL + `items/${id}`, this.httpOptions);
+  }
+
+  public getProductStock(id: number): Observable<any> {
+    return this.getProductById(id).pipe(
+      map((product: Product) => product.stock),
+      catchError((error) => {
+        console.error(error);
+        return throwError(
+          () => 'An error occurred while getting product stock.'
+        );
+      })
+    );
   }
 
   public postData(data: any): Observable<any> {
@@ -47,6 +60,12 @@ export class ApiCallService {
           return throwError(error);
         })
       );
+  }
+
+  public updateStock(id: number, quantity: number): Observable<any> {
+    return this.http.patch(this.API_URL + `items/${id}`, {
+      stock: quantity,
+    });
   }
 
   public putData(id: number, data: any): Observable<any> {
