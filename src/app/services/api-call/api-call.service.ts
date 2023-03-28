@@ -70,13 +70,13 @@ export class ApiCallService {
     return this.http
       .post(this.API_URL + 'command', order, { responseType: 'text' })
       .pipe(
-        catchError((error) => {
-          console.error(error);
-          return throwError(error);
-        }),
         map((newOrder) => {
           this.newOrderAdded.emit();
           return newOrder;
+        }),
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
         })
       );
   }
