@@ -1,6 +1,6 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, Subject, tap, throwError } from 'rxjs';
 import { Order } from '../../interfaces/order.interface';
 import { Product } from '../../interfaces/product.interface';
 
@@ -8,9 +8,7 @@ import { Product } from '../../interfaces/product.interface';
   providedIn: 'root',
 })
 export class ApiCallService {
-  public newOrderAdded = new EventEmitter();
-  public updateItem = new EventEmitter();
-
+  public newOrderAdded = new Subject<void>();
   constructor(private http: HttpClient) {}
 
   API_URL = 'http://localhost:8080/';
@@ -71,7 +69,7 @@ export class ApiCallService {
     return this.http
       .post(this.API_URL + 'command', order, { responseType: 'text' })
       .pipe(
-        tap(() => this.newOrderAdded.emit()),
+        tap(() => this.newOrderAdded.next()),
         catchError((error) => {
           console.error(error);
           return throwError(error);
@@ -83,7 +81,6 @@ export class ApiCallService {
     return this.http
       .post(this.API_URL + 'items', product, this.httpOptions)
       .pipe(
-        tap(() => this.updateItem.emit()),
         catchError((error) => {
           console.error(error);
           return throwError(error);
@@ -118,7 +115,6 @@ export class ApiCallService {
 
   public deleteProduct(id: number): Observable<any> {
     return this.http.delete(this.API_URL + `items/${id}`).pipe(
-      tap(() => this.updateItem.emit()),
       catchError((error) => {
         console.error(error);
         return throwError(error);

@@ -9,11 +9,17 @@ import { ApiCallService } from '../services/api-call/api-call.service';
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
-  products$: Observable<Product[]>;
+  products$: Observable<Product[]> = new Observable<Product[]>();
 
   constructor(private apiCallService: ApiCallService) {}
 
   ngOnInit(): void {
     this.products$ = this.apiCallService.getProducts();
+  }
+
+  deleteProduct(id: number) {
+    this.apiCallService.deleteProduct(id).subscribe(() => {
+      this.products$ = this.apiCallService.getProducts();
+    });
   }
 }
