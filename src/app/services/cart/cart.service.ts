@@ -79,6 +79,7 @@ export class CartService {
           name: cartItem.name,
           price: cartItem.price,
           quantity: cartItem.quantity,
+          stock: cartItem.stock,
         };
       }),
       total: this.getTotal(),

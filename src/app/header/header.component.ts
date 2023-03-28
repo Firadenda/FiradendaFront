@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart/cart.service';
 import { ApiCallService } from '../services/api-call/api-call.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   public cartProductCount: number = 0;
-  public commandCount: number = 0;
+  public commandCount$: Observable<number>;
 
   constructor(
     private cartService: CartService,
@@ -17,9 +18,15 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
-    this.apiCallService.getCommands().subscribe((commands) => {
-      this.commandCount = commands.length;
+    this.apiCallService.newOrderAdded.subscribe(() => {
+      this.commandCount$ = this.apiCallService
+        .getCommands()
+        .pipe(map((orders) => orders.length));
     });
+
+    this.commandCount$ = this.apiCallService
+      .getCommands()
+      .pipe(map((commands) => commands.length));
 
     this.cartService.cart$.subscribe((cartProducts) => {
       this.cartProductCount = cartProducts.reduce(

@@ -8,5 +8,5 @@ export interface Product {
   };
   description?: string;
   image?: string;
-  stock?: number;
+  stock: number;
 }

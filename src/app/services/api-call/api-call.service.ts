@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Order } from '../../interfaces/order.interface';
@@ -8,6 +8,8 @@ import { Product } from '../../interfaces/product.interface';
   providedIn: 'root',
 })
 export class ApiCallService {
+  public newOrderAdded = new EventEmitter();
+
   constructor(private http: HttpClient) {}
 
   API_URL = 'http://localhost:8080/';
@@ -22,22 +24,26 @@ export class ApiCallService {
     return this.http.get(this.API_URL + 'data', this.httpOptions);
   }
 
-  public getProducts(): Observable<any> {
-    return this.http.get(this.API_URL + 'items', this.httpOptions).pipe(
-      catchError((error) => {
-        console.error(error);
-        return throwError(error);
-      })
-    );
+  public getProducts(): Observable<Product[]> {
+    return this.http
+      .get<Product[]>(this.API_URL + 'items', this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
   }
 
-  public getCommands(): Observable<any> {
-    return this.http.get(this.API_URL + 'command', this.httpOptions).pipe(
-      catchError((error) => {
-        console.error(error);
-        return throwError(error);
-      })
-    );
+  public getCommands(): Observable<Order[]> {
+    return this.http
+      .get<Order[]>(this.API_URL + 'command', this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
   }
 
   public getProductById(id: number): Observable<any> {
@@ -67,6 +73,10 @@ export class ApiCallService {
         catchError((error) => {
           console.error(error);
           return throwError(error);
+        }),
+        map((newOrder) => {
+          this.newOrderAdded.emit();
+          return newOrder;
         })
       );
   }
