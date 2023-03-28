@@ -20,7 +20,7 @@
       <div class="card-footer">
         <button
           class="btn btn-primary"
-          [class.disabled]="outOfStock$ | async"
+          [class.disabled]="product.stock <= 0"
           (click)="addToCart(product)"
         >
           Add to Cart

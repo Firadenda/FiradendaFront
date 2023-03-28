@@ -20,6 +20,10 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmOrderModalComponent } from './modals/confirm-order-modal/confirm-order-modal.component';
 import { CommandComponent } from './command/command.component';
+import { StoreModule } from '@ngrx/store';
+import { productReducer } from './store/reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/effects';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,8 @@ import { CommandComponent } from './command/command.component';
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
+    StoreModule.forRoot({ products: productReducer }),
+    EffectsModule.forRoot([AppEffects]),
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
