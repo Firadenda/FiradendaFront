@@ -9,7 +9,7 @@ import { ApiCallService } from '../services/api-call/api-call.service';
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
-  products$: Observable<Product[]> = new Observable<Product[]>();
+  public products$: Observable<Product[]>;
 
   constructor(private apiCallService: ApiCallService) {}
 
