@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart/cart.service';
 import { Product } from '../interfaces/product.interface';
 import { ApiCallService } from '../services/api-call/api-call.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-products-home',
@@ -22,9 +22,9 @@ export class ProductsHomeComponent implements OnInit {
   ngOnInit(): void {
     this.products$ = this.productService.getProducts();
 
-    this.apiCallService.newOrderAdded.subscribe(() => {
-      this.products$ = this.productService.getProducts();
-    });
+    this.apiCallService.newOrderAdded.pipe(
+      tap((this.products$ = this.productService.getProducts()))
+    );
 
     this.outOfStock$ = this.products$.pipe(
       map((products) => {

@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { Order } from '../../interfaces/order.interface';
 import { Product } from '../../interfaces/product.interface';
 
@@ -9,6 +9,7 @@ import { Product } from '../../interfaces/product.interface';
 })
 export class ApiCallService {
   public newOrderAdded = new EventEmitter();
+  public updateItem = new EventEmitter();
 
   constructor(private http: HttpClient) {}
 
@@ -70,15 +71,32 @@ export class ApiCallService {
     return this.http
       .post(this.API_URL + 'command', order, { responseType: 'text' })
       .pipe(
-        map((newOrder) => {
-          this.newOrderAdded.emit();
-          return newOrder;
-        }),
+        tap(() => this.newOrderAdded.emit()),
         catchError((error) => {
           console.error(error);
           return throwError(error);
         })
       );
+  }
+
+  public postProduct(product: Product): Observable<any> {
+    return this.http
+      .post(this.API_URL + 'items', product, this.httpOptions)
+      .pipe(
+        tap(() => this.updateItem.emit()),
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
+  }
+
+  public updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(
+      this.API_URL + `items/${product.id}`,
+      product,
+      this.httpOptions
+    );
   }
 
   public updateStock(id: number, quantity: number): Observable<any> {
@@ -90,11 +108,21 @@ export class ApiCallService {
     );
   }
 
-  public putData(id: number, data: any): Observable<any> {
+  public updateData(id: number, data: any): Observable<any> {
     return this.http.put(this.API_URL + `data/${id}`, data, this.httpOptions);
   }
 
   public deleteData(id: number): Observable<any> {
     return this.http.delete(this.API_URL + `data/${id}`, this.httpOptions);
+  }
+
+  public deleteProduct(id: number): Observable<any> {
+    return this.http.delete(this.API_URL + `items/${id}`).pipe(
+      tap(() => this.updateItem.emit()),
+      catchError((error) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
   }
 }
