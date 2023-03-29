@@ -12,13 +12,13 @@
       <li class="list-group-item" *ngFor="let item of command.items">
         <div class="row">
           <div class="col-6">{{ item.name }}</div>
-          <div class="col-3">{{ item.price }}</div>
+          <div class="col-3">{{ item.price | currency : "EUR" }}</div>
         </div>
       </li>
       <li class="list-group-item">
         <div class="row">
           <div class="col-6"><strong>Total</strong></div>
-          <div class="col-6">{{ command.total }}</div>
+          <div class="col-6">{{ command.total | currency : "EUR" }}</div>
         </div>
       </li>
       <li class="list-group-item">
@@ -29,6 +29,9 @@
           <div class="col-12">{{ command.address }}</div>
         </div>
       </li>
+      <button class="btn btn-primary mb-3" (click)="downloadPdf()">
+        Download PDF
+      </button>
     </ul>
   </div>
 </div>
