@@ -24,6 +24,7 @@ import { StoreModule } from '@ngrx/store';
 import { productReducer } from './store/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AppEffects } from './store/effects';
     MatButtonModule,
     StoreModule.forRoot({ products: productReducer }),
     EffectsModule.forRoot([AppEffects]),
+    FormsModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
