@@ -81,7 +81,10 @@ export class AdminComponent {
     const product: Product = {
       id: this.productForm.value.id,
       name: this.productForm.value.name,
-      category: this.productForm.value.category.id,
+      category: {
+        id: this.productForm.value.category.id,
+        name: this.productForm.value.category.name,
+      },
       description: this.productForm.value.description,
       image:
         'https://lopinion.com/storage/articles/e1n9Iy3dHyc5bfi8aGaerEAic6tBrQpNDQjqrrUd.jpg',

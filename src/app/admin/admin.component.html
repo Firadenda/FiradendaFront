@@ -93,10 +93,11 @@
                 formControlName="category"
               >
                 <option
-                  *ngFor="let categories of categories$ | async"
-                  value="{{ categories.name }}"
+                  *ngFor="let category of categories$ | async"
+                  [ngValue]="category"
+                  value="{{ category.name }}"
                 >
-                  {{ categories.name }}
+                  {{ category.name }}
                 </option>
               </select>
               <div
