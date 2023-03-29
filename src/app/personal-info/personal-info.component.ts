@@ -45,7 +45,6 @@ export class PersonalInfoComponent {
       },
     };
 
-    const currentPersonalInfo = this.cartService.personalInfoSubject.getValue();
     this.cartService.personalInfoSubject.next([personalInfo]);
 
     this.router.navigate(['/order-resume']);

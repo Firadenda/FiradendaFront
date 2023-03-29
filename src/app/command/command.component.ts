@@ -21,16 +21,20 @@ export class CommandComponent {
   downloadPDF(command: Order) {
     const doc = new jsPDF();
 
-    doc.text(`Order ${command.id}`, 10, 10);
+    doc.text(
+      `Order ${command.id} - ${command.firstName} ${command.lastName}`,
+      10,
+      10
+    );
     command.items.forEach((items, index) => {
       doc.text(
         `Product: ${items.item.name} - Price: ${items.item.price} € - Quantity: ${items.number}`,
         20,
-        20 + index * 10
+        30 + index * 10
       );
     });
-    doc.text(`Total: ${command.total} €`, 20, 30 + command.items.length * 10);
-    doc.text(`Address: ${command.address}`, 20, 40 + command.items.length * 10);
+    doc.text(`Total: ${command.total} €`, 20, 50 + command.items.length * 10);
+    doc.text(`Address: ${command.address}`, 20, 60 + command.items.length * 10);
 
     doc.save(`order_${command.id}.pdf`);
   }
