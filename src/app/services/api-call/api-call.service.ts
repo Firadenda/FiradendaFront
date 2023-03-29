@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, Subject, tap, throwError } from 'rxjs';
 import { Order } from '../../interfaces/order.interface';
 import { Product } from '../../interfaces/product.interface';
+import { Category } from '../../interfaces/category.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,17 @@ export class ApiCallService {
   public getProducts(): Observable<Product[]> {
     return this.http
       .get<Product[]>(this.API_URL + 'items', this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
+  }
+
+  public getCategories(): Observable<Category[]> {
+    return this.http
+      .get<Category[]>(this.API_URL + 'category', this.httpOptions)
       .pipe(
         catchError((error) => {
           console.error(error);

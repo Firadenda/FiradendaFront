@@ -7,6 +7,7 @@ import { AppState } from '../store/state';
 import { getProducts } from '../store/selectors';
 import { loadProducts } from '../store/actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Category } from '../interfaces/category.interface';
 
 @Component({
   selector: 'app-admin',
@@ -15,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AdminComponent {
   public products$: Observable<Product[]>;
+  public categories$: Observable<Category[]>;
   public productForm: FormGroup;
   public modalTitle: string;
   public isModalOpen = false;
@@ -28,10 +30,12 @@ export class AdminComponent {
   ngOnInit(): void {
     this.products$ = this.store.pipe(select(getProducts));
     this.store.dispatch(loadProducts());
+    this.categories$ = this.apiCallService.getCategories();
 
     this.productForm = this.formBuilder.group({
       id: [null],
       name: ['', Validators.required],
+      category: ['', Validators.required],
       description: [''],
       price: ['', Validators.required],
       stock: ['', Validators.required],
@@ -62,7 +66,10 @@ export class AdminComponent {
     const product: Product = {
       id: this.productForm.value.id,
       name: this.productForm.value.name,
+      category: this.productForm.value.category,
       description: this.productForm.value.description,
+      image:
+        'https://lopinion.com/storage/articles/e1n9Iy3dHyc5bfi8aGaerEAic6tBrQpNDQjqrrUd.jpg',
       price: this.productForm.value.price,
       stock: this.productForm.value.stock,
     };

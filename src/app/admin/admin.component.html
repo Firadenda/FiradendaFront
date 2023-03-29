@@ -80,6 +80,31 @@
               </div>
             </div>
             <div class="form-group">
+              <label for="category">Category</label>
+              <select
+                class="form-select"
+                id="category"
+                formControlName="category"
+              >
+                <option
+                  *ngFor="let categories of categories$ | async"
+                  value="{{ categories.name }}"
+                >
+                  {{ categories.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  productForm.controls['category'].invalid &&
+                  (productForm.controls['category'].dirty ||
+                    productForm.controls['category'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Category is required
+              </div>
+            </div>
+            <div class="form-group">
               <label for="description">Description</label>
               <input
                 type="text"
