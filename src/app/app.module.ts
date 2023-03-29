@@ -25,6 +25,7 @@ import { productReducer } from './store/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrderResumeComponent,
     ConfirmOrderModalComponent,
     CommandComponent,
+    PersonalInfoComponent,
   ],
   imports: [
     BrowserModule,

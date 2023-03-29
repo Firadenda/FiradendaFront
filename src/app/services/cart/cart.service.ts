@@ -6,6 +6,7 @@ import { ApiCallService } from '../api-call/api-call.service';
 import { Order } from '../../interfaces/order.interface';
 import { ConfirmOrderModalComponent } from '../../modals/confirm-order-modal/confirm-order-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PersonalInfo } from '../../interfaces/personal-info.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class CartService {
   public isVisible = false;
   private cartSubject = new BehaviorSubject<CartProduct[]>([]);
-  private personalInfoSubject = new BehaviorSubject<any>([]);
+  public personalInfoSubject = new BehaviorSubject<any>([]);
   public cart$: Observable<CartProduct[]> = this.cartSubject.asObservable();
   public personalInfo$: Observable<any> =
     this.personalInfoSubject.asObservable();
@@ -69,13 +70,14 @@ export class CartService {
   }
 
   public processOrder(): void {
-    this.router.navigate(['/order-resume']);
+    this.router.navigate(['/personal-info']);
     this.isVisible = false;
   }
 
   public confirmOrder() {
     const cartItems = this.cartSubject.getValue();
     const personalInfo = this.personalInfoSubject.getValue();
+    console.log(personalInfo.map((info: PersonalInfo) => info.lastName));
     const order: Order = {
       items: cartItems.map((cartItem) => {
         return {
@@ -89,30 +91,32 @@ export class CartService {
         };
       }),
       total: this.getTotal(),
-      credit: personalInfo.map(
-        (personalInfo: {
-          id: number;
-          number: number;
-          date: string;
-          owner: string;
-          cvc: number;
-        }) => {
-          return {
-            id: personalInfo.id,
-            number: personalInfo.number,
-            date: personalInfo.date,
-            owner: personalInfo.owner,
-            cvc: personalInfo.cvc,
-          };
-        }
-      ),
-      firstname: personalInfo.map(
-        (personalInfo: { firstname: string }) => personalInfo.firstname
-      ),
-      lastname: personalInfo.map(
-        (personalInfo: { lastname: string }) => personalInfo.lastname
-      ),
-      address: '19 rue Lucien Faure, Bordeaux',
+      credit: personalInfo
+        .map(
+          (personalInfo: {
+            creditCard: {
+              id: number;
+              number: number;
+              date: string;
+              owner: string;
+              cvc: number;
+            };
+          }) => {
+            return {
+              id: personalInfo.creditCard.id,
+              number: personalInfo.creditCard.number,
+              date: personalInfo.creditCard.date,
+              owner: personalInfo.creditCard.owner,
+              cvc: personalInfo.creditCard.cvc,
+            };
+          }
+        )
+        .shift(),
+      firstName: personalInfo
+        .map((info: PersonalInfo) => info.firstName)
+        .shift(),
+      lastName: personalInfo.map((info: PersonalInfo) => info.lastName).shift(),
+      address: personalInfo.map((info: PersonalInfo) => info.address).shift(),
     };
 
     this.apiCallService.postOrder(order).subscribe(() => {

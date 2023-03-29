@@ -24,7 +24,7 @@ export class CommandComponent {
     doc.text(`Order ${command.id}`, 10, 10);
     command.items.forEach((items, index) => {
       doc.text(
-        `${items.item.name} - ${items.item.price} € - Item quantity mock`,
+        `Product: ${items.item.name} - Price: ${items.item.price} € - Quantity: ${items.number}`,
         20,
         20 + index * 10
       );

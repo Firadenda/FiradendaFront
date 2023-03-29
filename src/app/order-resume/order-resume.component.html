@@ -26,6 +26,14 @@
             </tbody>
           </table>
           <hr />
+          <div
+            *ngFor="let personalInfo of personalInfo$"
+            class="justify-content-center"
+          >
+            <h5 class="mr-4">Address: {{ personalInfo.address }}</h5>
+            <h5 class="mr-4">{{ personalInfo.firstName }}</h5>
+            <h5 class="mr-4">{{ personalInfo.lastName }}</h5>
+          </div>
           <div class="d-flex justify-content-end">
             <h5 class="mr-4">Total: {{ getTotal() | currency : "EUR" }}</h5>
           </div>

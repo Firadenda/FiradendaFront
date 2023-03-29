@@ -10,7 +10,7 @@ export interface Order {
   }[];
   total: number;
   credit: CreditCard[];
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   address: string;
 }
