@@ -111,8 +111,19 @@ export class ApiCallService {
       );
   }
 
-  public updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(
+  public postCategory(category: Category): Observable<any> {
+    return this.http
+      .post(this.API_URL + 'category', category, { responseType: 'text' })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
+  }
+
+  public updateProduct(product: Product): Observable<any> {
+    return this.http.put(
       this.API_URL + `items/${product.id}`,
       product,
       this.httpOptions
@@ -138,6 +149,15 @@ export class ApiCallService {
 
   public deleteProduct(id: number): Observable<any> {
     return this.http.delete(this.API_URL + `items/${id}`).pipe(
+      catchError((error) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  public deleteCategory(id: number): Observable<Category> {
+    return this.http.delete<Category>(this.API_URL + `category/${id}`).pipe(
       catchError((error) => {
         console.error(error);
         return throwError(error);

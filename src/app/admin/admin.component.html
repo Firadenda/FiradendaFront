@@ -1,7 +1,10 @@
 <div class="container">
   <h1>Product Management</h1>
-  <button class="btn btn-primary mb-3" (click)="openModal(null)">
+  <button class="btn btn-primary m-2" (click)="openModal(null)">
     Add Product
+  </button>
+  <button class="btn btn-primary m-2" (click)="openCategoryModal()">
+    Add Category
   </button>
   <table class="table">
     <thead>
@@ -38,6 +41,7 @@
       </tr>
     </tbody>
   </table>
+
   <div
     class="modal"
     tabindex="-1"
@@ -164,6 +168,71 @@
           </button>
           <button type="button" class="btn btn-primary" (click)="saveProduct()">
             {{ productForm.value.id ? "Save Changes" : "Add Product" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Category Modal -->
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngClass]="{ show: isCategoryModalOpen }"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Category</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="closeCategoryModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="categoryForm">
+            <div class="form-group">
+              <label for="categoryName">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="categoryName"
+                formControlName="categoryName"
+              />
+              <div
+                *ngIf="
+                  categoryForm.controls['categoryName'].invalid &&
+                  (categoryForm.controls['categoryName'].dirty ||
+                    categoryForm.controls['categoryName'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Category name is required
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="closeCategoryModal()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="categoryForm.invalid"
+            (click)="saveCategory()"
+          >
+            Add Category
           </button>
         </div>
       </div>

@@ -18,8 +18,10 @@ export class AdminComponent {
   public products$: Observable<Product[]>;
   public categories$: Observable<Category[]>;
   public productForm: FormGroup;
+  public categoryForm: FormGroup;
   public modalTitle: string;
   public isModalOpen = false;
+  public isCategoryModalOpen = false;
 
   constructor(
     private apiCallService: ApiCallService,
@@ -40,6 +42,10 @@ export class AdminComponent {
       price: ['', Validators.required],
       stock: ['', Validators.required],
     });
+
+    this.categoryForm = this.formBuilder.group({
+      categoryName: ['', Validators.required],
+    });
   }
 
   openModal(product: Product | null) {
@@ -54,8 +60,17 @@ export class AdminComponent {
     }
   }
 
+  openCategoryModal() {
+    this.isCategoryModalOpen = true;
+    this.categoryForm.reset();
+  }
+
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  closeCategoryModal() {
+    this.isCategoryModalOpen = false;
   }
 
   saveProduct() {
@@ -66,7 +81,7 @@ export class AdminComponent {
     const product: Product = {
       id: this.productForm.value.id,
       name: this.productForm.value.name,
-      category: this.productForm.value.category,
+      category: this.productForm.value.category.id,
       description: this.productForm.value.description,
       image:
         'https://lopinion.com/storage/articles/e1n9Iy3dHyc5bfi8aGaerEAic6tBrQpNDQjqrrUd.jpg',
@@ -87,9 +102,30 @@ export class AdminComponent {
     }
   }
 
+  saveCategory() {
+    if (this.categoryForm.invalid) {
+      return;
+    }
+
+    const category: Category = {
+      name: this.categoryForm.value.categoryName,
+    };
+
+    this.apiCallService.postCategory(category).subscribe(() => {
+      this.closeCategoryModal();
+      this.categories$ = this.apiCallService.getCategories();
+    });
+  }
+
   deleteProduct(id: number) {
     this.apiCallService.deleteProduct(id).subscribe(() => {
       this.products$ = this.apiCallService.getProducts();
+    });
+  }
+
+  deleteCategory(id: number) {
+    this.apiCallService.deleteCategory(id).subscribe(() => {
+      this.categories$ = this.apiCallService.getCategories();
     });
   }
 }
