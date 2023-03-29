@@ -18,26 +18,32 @@ export class CommandComponent {
     this.commands$ = this.productService.getCommands();
   }
 
-  downloadPdf() {
+  downloadPDF() {
     const doc = new jsPDF();
-    const commands = this.commands$;
-    let y = 10;
 
-    commands.subscribe((data) => {
-      data.forEach((command) => {
-        doc.text(`Order ${command.id}`, 10, y);
-        y += 10;
-        command.items.forEach((item) => {
-          doc.text(`${item.name} - ${item.price} - Item quantity mock`, 10, y);
-          y += 10;
+    this.commands$.subscribe((commands) => {
+      commands.forEach((command, index) => {
+        doc.text(`Order ${command.id}`, 10, (index + 1) * 10);
+        command.items.forEach((item, itemIndex) => {
+          doc.text(
+            `${item.name} - ${item.price} € - Item quantity mock`,
+            20,
+            (index + 1) * 10 + (itemIndex + 1) * 10
+          );
         });
-        doc.text(`Total: ${command.total}`, 10, y);
-        y += 10;
-        doc.text(`Address: ${command.address}`, 10, y);
-        y += 20;
+        doc.text(
+          `Total: ${command.total} €`,
+          20,
+          (index + 1) * 10 + (command.items.length + 1) * 10
+        );
+        doc.text(
+          `Address: ${command.address}`,
+          20,
+          (index + 1) * 10 + (command.items.length + 2) * 10
+        );
       });
-    });
 
-    doc.save('commands.pdf');
+      doc.save('orders.pdf');
+    });
   }
 }
