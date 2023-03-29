@@ -45,6 +45,17 @@ export class ApiCallService {
       );
   }
 
+  public getCommand(id: number): Observable<Order[]> {
+    return this.http
+      .get<Order[]>(this.API_URL + `command/${id}`, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(error);
+        })
+      );
+  }
+
   public getProductById(id: number): Observable<any> {
     return this.http.get(this.API_URL + `items/${id}`, this.httpOptions);
   }

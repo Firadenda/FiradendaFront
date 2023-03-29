@@ -12,38 +12,26 @@ import jsPDF from 'jspdf';
 export class CommandComponent {
   public commands$: Observable<Order[]>;
 
-  constructor(private productService: ApiCallService) {}
+  constructor(private apiCallService: ApiCallService) {}
 
   ngOnInit(): void {
-    this.commands$ = this.productService.getCommands();
+    this.commands$ = this.apiCallService.getCommands();
   }
 
-  downloadPDF() {
+  downloadPDF(command: Order) {
     const doc = new jsPDF();
 
-    this.commands$.subscribe((commands) => {
-      commands.forEach((command, index) => {
-        doc.text(`Order ${command.id}`, 10, (index + 1) * 10);
-        command.items.forEach((item, itemIndex) => {
-          doc.text(
-            `${item.name} - ${item.price} € - Item quantity mock`,
-            20,
-            (index + 1) * 10 + (itemIndex + 1) * 10
-          );
-        });
-        doc.text(
-          `Total: ${command.total} €`,
-          20,
-          (index + 1) * 10 + (command.items.length + 1) * 10
-        );
-        doc.text(
-          `Address: ${command.address}`,
-          20,
-          (index + 1) * 10 + (command.items.length + 2) * 10
-        );
-      });
-
-      doc.save('orders.pdf');
+    doc.text(`Order ${command.id}`, 10, 10);
+    command.items.forEach((item, index) => {
+      doc.text(
+        `${item.name} - ${item.price} € - Item quantity mock`,
+        20,
+        20 + index * 10
+      );
     });
+    doc.text(`Total: ${command.total} €`, 20, 30 + command.items.length * 10);
+    doc.text(`Address: ${command.address}`, 20, 40 + command.items.length * 10);
+
+    doc.save(`order_${command.id}.pdf`);
   }
 }
