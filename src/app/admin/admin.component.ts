@@ -42,11 +42,9 @@ export class AdminComponent {
     this.isModalOpen = true;
 
     if (product) {
-      // Populate the form with the product's details if editing
       this.productForm.patchValue(product);
       this.modalTitle = 'Edit Product';
     } else {
-      // Clear the form if adding a new product
       this.productForm.reset();
       this.modalTitle = 'Add Product';
     }
@@ -57,12 +55,10 @@ export class AdminComponent {
   }
 
   saveProduct() {
-    // If the form is invalid, don't submit it
     if (this.productForm.invalid) {
       return;
     }
 
-    // Get the form values and convert to a Product object
     const product: Product = {
       id: this.productForm.value.id,
       name: this.productForm.value.name,
@@ -71,15 +67,12 @@ export class AdminComponent {
       stock: this.productForm.value.stock,
     };
 
-    // Call the API to add or edit the product
     if (product.id) {
-      // Editing a product
       this.apiCallService.updateProduct(product).subscribe(() => {
         this.closeModal();
         this.products$ = this.apiCallService.getProducts();
       });
     } else {
-      // Adding a new product
       this.apiCallService.postProduct(product).subscribe(() => {
         this.closeModal();
         this.products$ = this.apiCallService.getProducts();
