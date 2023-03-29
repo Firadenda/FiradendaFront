@@ -38,16 +38,22 @@
             <td colspan="3">Total</td>
             <td>{{ getTotal() | currency : "EUR" }}</td>
             <td>
-              <button class="btn btn-danger" (click)="clearCart()">
+              <button
+                class="btn btn-danger p-2 justify-content-center"
+                (click)="clearCart()"
+              >
                 Clear Cart
-              </button>
-              <button class="btn btn-danger" (click)="passCommand()">
-                Checkout
               </button>
             </td>
           </tr>
         </tbody>
       </table>
+      <button
+        class="btn btn-success m-2 justify-content-end"
+        (click)="passCommand()"
+      >
+        Checkout
+      </button>
     </div>
   </div>
 </div>

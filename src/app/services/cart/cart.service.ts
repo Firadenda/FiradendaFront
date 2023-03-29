@@ -13,7 +13,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class CartService {
   public isVisible = false;
   private cartSubject = new BehaviorSubject<CartProduct[]>([]);
+  private personalInfoSubject = new BehaviorSubject<any>([]);
   public cart$: Observable<CartProduct[]> = this.cartSubject.asObservable();
+  public personalInfo$: Observable<any> =
+    this.personalInfoSubject.asObservable();
 
   constructor(
     private router: Router,
@@ -72,17 +75,43 @@ export class CartService {
 
   public confirmOrder() {
     const cartItems = this.cartSubject.getValue();
+    const personalInfo = this.personalInfoSubject.getValue();
     const order: Order = {
       items: cartItems.map((cartItem) => {
         return {
-          id: cartItem.id,
-          name: cartItem.name,
-          price: cartItem.price,
-          quantity: cartItem.quantity,
-          stock: cartItem.stock,
+          item: {
+            id: cartItem.id,
+            name: cartItem.name,
+            price: cartItem.price,
+            stock: cartItem.stock,
+          },
+          number: cartItem.quantity,
         };
       }),
       total: this.getTotal(),
+      credit: personalInfo.map(
+        (personalInfo: {
+          id: number;
+          number: number;
+          date: string;
+          owner: string;
+          cvc: number;
+        }) => {
+          return {
+            id: personalInfo.id,
+            number: personalInfo.number,
+            date: personalInfo.date,
+            owner: personalInfo.owner,
+            cvc: personalInfo.cvc,
+          };
+        }
+      ),
+      firstname: personalInfo.map(
+        (personalInfo: { firstname: string }) => personalInfo.firstname
+      ),
+      lastname: personalInfo.map(
+        (personalInfo: { lastname: string }) => personalInfo.lastname
+      ),
       address: '19 rue Lucien Faure, Bordeaux',
     };
 

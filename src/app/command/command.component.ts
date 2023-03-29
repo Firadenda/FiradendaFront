@@ -22,9 +22,9 @@ export class CommandComponent {
     const doc = new jsPDF();
 
     doc.text(`Order ${command.id}`, 10, 10);
-    command.items.forEach((item, index) => {
+    command.items.forEach((items, index) => {
       doc.text(
-        `${item.name} - ${item.price} € - Item quantity mock`,
+        `${items.item.name} - ${items.item.price} € - Item quantity mock`,
         20,
         20 + index * 10
       );
