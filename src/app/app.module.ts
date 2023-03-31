@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivityComponent } from './activity/activity.component';
 import { ProductsHomeComponent } from './products-home/products-home.component';
 import { ProductsComponent } from './products/products.component';
-import { FeriasComponent } from './ferias/ferias.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderResumeComponent } from './order-resume/order-resume.component';
