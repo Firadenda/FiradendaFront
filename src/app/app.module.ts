@@ -28,6 +28,7 @@ import { AppEffects } from './store/effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { FeriasComponent } from './ferias/ferias.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { FeriasComponent } from './ferias/ferias.component';
     CommandComponent,
     PersonalInfoComponent,
     FeriasComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,8 +6,9 @@ import { CartComponent } from './cart/cart.component';
 import { OrderResumeComponent } from './order-resume/order-resume.component';
 import { CommandComponent } from './command/command.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
-import {ProductsComponent} from "./products/products.component";
-import {FeriasComponent} from "./ferias/ferias.component";
+import { ProductsComponent } from './products/products.component';
+import { FeriasComponent } from './ferias/ferias.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'personal-info', component: PersonalInfoComponent },
   { path: 'order-resume', component: OrderResumeComponent },
   { path: 'products', component: ProductsComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'ferias', component: FeriasComponent },
   { path: '**', redirectTo: '' },
 ];
