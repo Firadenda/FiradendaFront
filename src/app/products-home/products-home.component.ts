@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductsHomeComponent implements OnInit {
   public products$: Observable<Product[]>;
+  public topProducts$: Observable<Product[]>;
 
   constructor(
     private cartService: CartService,

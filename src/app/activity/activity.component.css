@@ -17,6 +17,24 @@
   transition: all 0.2s ease-in;
   overflow: hidden;
   cursor: pointer;
+  background-size: cover;
+  background-position: center center;
+}
+
+#dax{
+  background-image: url("/assets/Images/feriadax.jpg");
+}
+
+#montdemarsan{
+  background-image: url("/assets/Images/feriamontde.jpg");
+}
+
+#bayonne{
+  background-image: url("/assets/Images/feriabayonne.jpg");
+}
+
+#pampelune{
+  background-image: url("/assets/Images/ferias.jpg");
 }
 
 .bloc-activity .card-container .card-content .opacity-card{
@@ -39,17 +57,26 @@
   display: none;
 }
 
-.card-container span{
+.bloc-activity .card-container .card-content:hover a{
+  text-shadow: 0px 0px 3px #000000;
+}
+
+.card-container a{
   position: absolute;
-  bottom: 12vh;
-  right: -8vh;
-  transform: rotate(-90deg);
+  bottom: 10px;
+  right: 10px;
   font-weight: bolder;
   font-size: 32px;
   letter-spacing: 0;
   text-transform: uppercase;
   z-index: 2;
   color: #FFFFFF;
+  text-decoration: none;
+  text-align: right;
+}
+
+.card-container a:hover{
+  color: #cecece;
 }
 
 @media screen and (max-width: 1200px) {

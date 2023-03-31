@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CartService } from "../services/cart/cart.service";
 
 @Component({
   selector: 'app-home',

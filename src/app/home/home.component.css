@@ -13,7 +13,7 @@
 }
 
 .homepage .homepage_infos{
-  width: 25%;
+  width: 0%;
   height: 100%;
   background-color: rgba(211, 0, 0, 0.9);
   position: relative;
@@ -21,6 +21,19 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transition: all 0.3s linear;
+}
+
+.homepage:hover .homepage_infos{
+  width: 25%;
+}
+
+.homepage:hover .homepage_infos:after{
+  animation: none;
+}
+
+.homepage:hover h1, .homepage:hover h2{
+  display: block;
 }
 
 .homepage h1{
@@ -28,10 +41,14 @@
   color: antiquewhite;
   font-weight: 800;
   text-transform: uppercase;
+  display: none;
+  transition: all 0.3s linear;
 }
 
 .homepage h2{
   padding-left: 10vh;
+  display: none;
+  transition: all 0.3s linear;
 }
 
 .homepage .homepage_infos:after{
@@ -44,4 +61,62 @@
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
   background-color: rgba(211, 0, 0, 0.9);
+  animation: bounce-left 5s both infinite;
+}
+
+
+@keyframes bounce-left {
+  0%{
+    width: 20vh;
+    right: -20vh;
+  }
+
+  40%{
+    width: 32vh;
+    right: -32vh;
+  }
+
+  60%{
+    width: 32vh;
+    right: -32vh;
+  }
+
+  100%{
+    width: 20vh;
+    right: -20vh;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .homepage .homepage_infos{
+    width: 45%;
+  }
+
+  .homepage:hover .homepage_infos{
+    width: 45%;
+  }
+
+  .homepage h1{
+    padding-left: 0;
+    display: block;
+  }
+
+  .homepage h2{
+    padding-left: 0;
+    display: block;
+  }
+
+  .homepage .homepage_infos:after{
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 520px){
+  .homepage .homepage_infos{
+    width: 50%;
+  }
+
+  .homepage:hover .homepage_infos{
+    width: 50%;
+  }
 }
