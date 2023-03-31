@@ -1,0 +1,38 @@
+<div class="card" *ngFor="let command of commands$ | async">
+  <div class="card-body">
+    <h5 class="card-title">Order {{ command.id }}</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-6"><strong>Product</strong></div>
+          <div class="col-3"><strong>Price</strong></div>
+          <div class="col-3"><strong>Quantity</strong></div>
+        </div>
+      </li>
+      <li class="list-group-item" *ngFor="let items of command.items">
+        <div class="row">
+          <div class="col-6">{{ items.item.name }}</div>
+          <div class="col-3">{{ items.item.price | currency : "EUR" }}</div>
+          <div class="col-3">{{ items.number }}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-6"><strong>Total</strong></div>
+          <div class="col-6">{{ command.total | currency : "EUR" }}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-12"><strong>Address</strong></div>
+        </div>
+        <div class="row">
+          <div class="col-12">{{ command.address }}</div>
+        </div>
+      </li>
+      <button class="btn btn-primary mb-3" (click)="downloadPDF(command)">
+        Download PDF
+      </button>
+    </ul>
+  </div>
+</div>

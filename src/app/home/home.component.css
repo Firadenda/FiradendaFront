@@ -1,6 +1,6 @@
 .homepage{
   position: relative;
-  height: 80vh;
+  height: 85vh;
   width: 100%;
   overflow: hidden;
   padding: 0;
@@ -8,6 +8,8 @@
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 89%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 75%);
 }
 
 .homepage .homepage_infos{

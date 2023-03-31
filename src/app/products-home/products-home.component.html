@@ -1,0 +1,31 @@
+<div class="row container-fluid">
+  <div
+    *ngFor="let product of products$ | async; trackBy: trackByIndex"
+    class="col-lg-4 col-md-6 mb-4"
+  >
+    <div class="card h-100">
+      <img
+        class="card-img-top"
+        src="{{ product.image }}"
+        alt="{{ product.name }}"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{ product.price | currency : "EUR" }}
+        </h6>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="card-text">Stock: {{ product.stock }}</p>
+      </div>
+      <div class="card-footer">
+        <button
+          class="btn btn-primary"
+          [class.disabled]="product.stock <= 0"
+          (click)="addToCart(product)"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

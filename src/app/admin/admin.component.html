@@ -1,0 +1,248 @@
+<div class="container">
+  <h1>Product Management</h1>
+  <button class="btn btn-primary m-2" (click)="openModal(null)">
+    Add Product
+  </button>
+  <button class="btn btn-primary m-2" (click)="openCategoryModal()">
+    Add Category
+  </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products$ | async">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.category?.name }}</td>
+        <td>{{ product.price | currency : "EUR" }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+          <button
+            class="btn btn-outline-secondary btn-sm mr-1"
+            (click)="openModal(product)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteProduct(product.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngClass]="{ show: isModalOpen }"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalTitle }}</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="closeModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="productForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+              />
+              <div
+                *ngIf="
+                  productForm.controls['name'].invalid &&
+                  (productForm.controls['name'].dirty ||
+                    productForm.controls['name'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Name is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select
+                class="form-select"
+                id="category"
+                formControlName="category"
+              >
+                <option
+                  *ngFor="let category of categories$ | async"
+                  [ngValue]="category"
+                  value="{{ category.name }}"
+                >
+                  {{ category.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  productForm.controls['category'].invalid &&
+                  (productForm.controls['category'].dirty ||
+                    productForm.controls['category'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Category is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input
+                type="text"
+                class="form-control"
+                id="description"
+                formControlName="description"
+              />
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                formControlName="price"
+              />
+              <div
+                *ngIf="
+                  productForm.controls['price'].invalid &&
+                  (productForm.controls['price'].dirty ||
+                    productForm.controls['price'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Price is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="stock">Stock</label>
+              <input
+                type="number"
+                class="form-control"
+                id="stock"
+                formControlName="stock"
+              />
+              <div
+                *ngIf="
+                  productForm.controls['stock'].invalid &&
+                  (productForm.controls['stock'].dirty ||
+                    productForm.controls['stock'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Stock is required
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="productForm.invalid"
+            (click)="saveProduct()"
+          >
+            {{ productForm.value.id ? "Save Changes" : "Add Product" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngClass]="{ show: isCategoryModalOpen }"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Category</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="closeCategoryModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="categoryForm">
+            <div class="form-group">
+              <label for="categoryName">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="categoryName"
+                formControlName="categoryName"
+              />
+              <div
+                *ngIf="
+                  categoryForm.controls['categoryName'].invalid &&
+                  (categoryForm.controls['categoryName'].dirty ||
+                    categoryForm.controls['categoryName'].touched)
+                "
+                class="alert alert-danger mt-2"
+              >
+                Category name is required
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="closeCategoryModal()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="categoryForm.invalid"
+            (click)="saveCategory()"
+          >
+            Add Category
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

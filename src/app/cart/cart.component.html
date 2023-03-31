@@ -1,1 +1,59 @@
-<p>cart works!</p>
+<div
+  class="cart-sidebar"
+  [@slideInOut]="cartService.isVisible ? 'in' : 'out'"
+  [style.display]="cartService.isVisible ? 'block' : 'none'"
+>
+  <div *ngIf="cartProducts$.length === 0" class="text-center my-5">
+    <h4>Your cart is empty</h4>
+  </div>
+
+  <div *ngIf="cartProducts$.length > 0">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Remove Product</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of cartProducts$">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency : "EUR" }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price * product.quantity | currency : "EUR" }}</td>
+            <td>
+              <button
+                class="btn btn-danger"
+                (click)="removeProduct(product.id)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">Total</td>
+            <td>{{ getTotal() | currency : "EUR" }}</td>
+            <td>
+              <button
+                class="btn btn-danger p-2 justify-content-center"
+                (click)="clearCart()"
+              >
+                Clear Cart
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        class="btn btn-success m-2 justify-content-end"
+        (click)="passCommand()"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>
