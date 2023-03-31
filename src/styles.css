@@ -1,39 +1,19 @@
-.nav {
+@font-face {
+  font-family: 'Merriweather';
+  src: url("fonts/merriweather-Regular.ttf");
+}
+
+body{
+  background-color: #b6b6b6;
+}
+
+.nav{
   width: 100%;
   padding: 1em 4em;
 }
 
-.nav .navbar {
+.nav .navbar{
   max-width: fit-content;
   border-radius: 50%;
   background-color: lightgrey;
-} /* You can add global styles to this file, and also import other style files */
-
-.cart-sidebar {
-  position: fixed;
-  right: 0;
-  width: 500px;
-  height: fit-content;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
-
-.active {
-  color: #d30000 !important;
-}
-
-.modal-container {
-  position: fixed !important;
-  top: 10% !important;
-  left: 50% !important;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  transform: translate(-50%, -50%) !important;
-  z-index: 9999;
-}
-
-.show {
-  display: block !important;
-}
+}/* You can add global styles to this file, and also import other style files */
