@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'personal-info', component: PersonalInfoComponent },
   { path: 'order-resume', component: OrderResumeComponent },
   { path: 'products', component: ProductsComponent },
-  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'ferias', component: FeriasComponent },
   { path: '**', redirectTo: '' },
 ];

@@ -78,27 +78,34 @@
       </div>
     </div>
 
-    <div class="row list-product">
+    <div class="row container-fluid mt-3">
       <div
-        class="col-lg-4 col-sm-6 card-product"
         *ngFor="let product of filteredProducts$ | async; trackBy: trackByIndex"
+        class="col-lg-4 col-md-6 mb-4"
       >
-        <div class="card-product-content">
-          <img
-            class="card-img"
-            src="{{ product.image }}"
-            alt="{{ product.name }}"
-          />
-          <div class="row card-infos">
-            <h5>{{ product.name }}</h5>
-            <span>{{ product.price | currency : "EUR" }}</span>
-            <p>{{ product.description }}</p>
+        <div class="card h-100">
+          <div (click)="productDetails(product.id)">
+            <img
+              class="card-img-top"
+              src="{{ product.image }}"
+              alt="{{ product.name }}"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                {{ product.price | currency : "EUR" }}
+              </h6>
+              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text">Stock: {{ product.stock }}</p>
+            </div>
+          </div>
+          <div class="card-footer">
             <button
-              class="btn-product"
+              class="btn btn-primary"
               [class.disabled]="product.stock <= 0"
               (click)="addToCart(product)"
             >
-              Add to card
+              Add to Cart
             </button>
           </div>
         </div>
