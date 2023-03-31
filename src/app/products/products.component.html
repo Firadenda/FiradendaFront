@@ -1,37 +1,63 @@
 <section class="products-container">
-  <div id="carouselExampleIndicators" class="carousel carousel-fade slide" data-bs-ride="carousel">
+  <div
+    id="carouselExampleIndicators"
+    class="carousel carousel-fade slide"
+    data-bs-ride="carousel"
+  >
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
         <video class="img-fluid" autoplay loop muted>
-          <source [src]="banniereProduct1" type="video/mp4"/>
+          <source [src]="banniereProduct1" type="video/mp4" />
         </video>
       </div>
       <div class="carousel-item">
         <video class="img-fluid" autoplay loop muted>
-          <source [src]="banniereProduct2" type="video/mp4"/>
+          <source [src]="banniereProduct2" type="video/mp4" />
         </video>
       </div>
       <div class="carousel-item">
         <video class="img-fluid" autoplay loop muted>
-          <source [src]="banniereProduct3" type="video/mp4"/>
+          <source [src]="banniereProduct3" type="video/mp4" />
         </video>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev"
+    >
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next"
+    >
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
@@ -42,21 +68,21 @@
     <div class="filter-content">
       <h4>Filtrez-vos recherches</h4>
       <div class="filter-words">
-        <p>Tee-shirt</p>
-        <p>Sweat</p>
-        <p>Accessoires</p>
-        <p>Casquettes / bob</p>
-        <p>Gobelets</p>
-        <p>Foulard</p>
-        <p>Mont de Marsan</p>
-        <p>Bayonne</p>
-        <p>Dax</p>
-        <p>Pampelune</p>
+        <p
+          *ngFor="let category of category$ | async"
+          [ngClass]="{ selected: activeCategory?.id === category.id }"
+          (click)="filterProductsByCategory(category)"
+        >
+          {{ category.name }}
+        </p>
       </div>
     </div>
 
     <div class="row list-product">
-      <div class="col-lg-4 col-sm-6 card-product" *ngFor="let product of products$ | async; trackBy: trackByIndex">
+      <div
+        class="col-lg-4 col-sm-6 card-product"
+        *ngFor="let product of filteredProducts$ | async; trackBy: trackByIndex"
+      >
         <div class="card-product-content">
           <img
             class="card-img"
@@ -67,11 +93,15 @@
             <h5>{{ product.name }}</h5>
             <span>{{ product.price | currency : "EUR" }}</span>
             <p>{{ product.description }}</p>
-            <button class="btn-product" [class.disabled]="product.stock <= 0"
-                    (click)="addToCart(product)">Add to card</button>
+            <button
+              class="btn-product"
+              [class.disabled]="product.stock <= 0"
+              (click)="addToCart(product)"
+            >
+              Add to card
+            </button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
