@@ -13,7 +13,7 @@ import { PersonalInfo } from '../../interfaces/personal-info.interface';
 })
 export class CartService {
   public isVisible = false;
-  private cartSubject = new BehaviorSubject<CartProduct[]>([]);
+  cartSubject = new BehaviorSubject<CartProduct[]>([]);
   public personalInfoSubject = new BehaviorSubject<any>([]);
   public cart$: Observable<CartProduct[]> = this.cartSubject.asObservable();
   public personalInfo$: Observable<any> =
@@ -25,6 +25,18 @@ export class CartService {
     private dialog: MatDialog
   ) {}
 
+  public saveCartToLocalStorage(): void {
+    localStorage.setItem('cart', JSON.stringify(this.cartSubject.getValue()));
+  }
+
+  public loadCartFromLocalStorage(): void {
+    const cartJson = localStorage.getItem('cart');
+    if (cartJson) {
+      const cartItems = JSON.parse(cartJson);
+      this.cartSubject.next(cartItems);
+    }
+  }
+
   public addToCart(product: CartProduct): void {
     const currentCart = this.cartSubject.getValue();
     const existingProductIndex = currentCart.findIndex(
@@ -33,8 +45,10 @@ export class CartService {
     if (existingProductIndex > -1) {
       currentCart[existingProductIndex].quantity++;
       this.cartSubject.next(currentCart);
+      this.saveCartToLocalStorage();
     } else {
       this.cartSubject.next([...currentCart, product]);
+      this.saveCartToLocalStorage();
       if (currentCart.length === 0) {
         this.isVisible = true;
       }
@@ -52,11 +66,13 @@ export class CartService {
         currentCart.splice(index, 1);
       }
       this.cartSubject.next([...currentCart]);
+      this.saveCartToLocalStorage();
     }
   }
 
   public clearCart(): void {
     this.cartSubject.next([]);
+    this.saveCartToLocalStorage();
   }
 
   public getTotal(): number {

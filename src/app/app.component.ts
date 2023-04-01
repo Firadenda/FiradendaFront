@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CartService } from './services/cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   public title = 'Firadenda';
 
-  ngOnInit() {}
+  private readonly cartService = inject(CartService);
+
+  ngOnInit() {
+    this.cartService.loadCartFromLocalStorage();
+  }
 }
